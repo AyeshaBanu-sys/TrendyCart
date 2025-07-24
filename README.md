@@ -1,4 +1,4 @@
-### **Project Name**: TrendyCart
+## **Project Name**: TrendyCart
 
  **What is TrendyCart?**
 
