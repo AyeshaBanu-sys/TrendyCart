@@ -1,0 +1,4 @@
+SELECT * FROM trendy_cart.jwellery_item;
+
+DELETE FROM trendy_cart.jwellery_item
+WHERE id = 7;

@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "70367c01-d333-4516-a390-0b28ac6c3000",
+		"name": "TrendyCart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35049325"
+	},
+	"item": [
+		{
+			"name": "Create categories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Postman Necklace\",\r\n    \"type\": \"Necklace by postman\",\r\n    \"price\": 37000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Full update categories",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 9,\r\n        \"name\": \"Post Golden Pearl Necklace\",\r\n        \"type\": \"gold Necklace\",\r\n        \"price\": 15000.0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial update categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Extract the response body\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the 'name' and 'type' fields are null\r",
+							"pm.expect(response.name).to.be.null;\r",
+							"pm.expect(response.type).to.be.null;\r",
+							"\r",
+							"// Check if the 'id' and 'price' fields are present and have expected types\r",
+							"pm.expect(response.id).to.exist;\r",
+							"pm.expect(response.id).to.be.a('number');\r",
+							"pm.expect(response.price).to.exist;\r",
+							"pm.expect(response.price).to.be.a('number');\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 25000.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove categories",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch all categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/jewellery/type/necklace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jewellery",
+						"type",
+						"necklace"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
