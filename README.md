@@ -1,12 +1,12 @@
 ## **Project Name**: TrendyCart
 
- **What is TrendyCart?**
+### **What is TrendyCart?**
 
 **TrendyCart** is a **mini e-commerce jewelry website** specially designed for women. It allows users to explore a variety of jewelry items categorized as **Necklaces**, **Earrings**, **Maang Tikka**, **Bangles**, **Rings**, **Anklets**, and **Nose Rings** — because every woman deserves beautiful jewelry!
 
 The platform provides functionalities for **Sign-up/Login** and **CRUD operations** (Create, Read, Update, Delete) on jewelry items — but only after successful user login. It offers a stylish and user-friendly interface to promote self-expression and beauty through jewelry.
 
- **Why was this project created?**
+### **Why was this project created?**
 
 This project was created to:
 
@@ -19,7 +19,7 @@ This project was created to:
 * Allow users to **securely manage jewelry items** using **CRUD operations**
 * Provide a platform to **practice API testing (Postman)** and **SQL queries**
 
- **Signup Functionality**
+### **Signup Functionality**
 
 * **Fields**: Username, Email, Password, Confirm Password
 * **Validations**:
@@ -34,7 +34,7 @@ This project was created to:
 * **Error Handling**: Field-specific, clear error messages
 * **Storage**: Stored securely in `localStorage`
 
- **Login Functionality**
+### **Login Functionality**
 
 * **Fields**: Username, Password
 * **Validation**: Matches credentials from signup
@@ -43,7 +43,7 @@ This project was created to:
   * Users must **log in to access CRUD operations**
   * If not logged in, show: **"Please log in to access CRUD operations."**
 
- **CRUD Operations for Jewelry**
+### **CRUD Operations for Jewelry**
 
 * **Only available after login**
 * **CRUD actions include**:
@@ -55,7 +55,7 @@ This project was created to:
 * **Storage**: Data is saved using `localStorage`
 * **Jewelry details shown under categories on the homepage*
 
-**Jewelry Categories**
+### **Jewelry Categories**
 
 Displayed visually for easy navigation:
 * Necklace
@@ -67,7 +67,7 @@ Displayed visually for easy navigation:
 * Anklets
 Each category displays jewelry added via CRUD operations.
 
- **UI Design Highlights**
+### **UI Design Highlights**
 
 * **Tagline**: *“Women, You Deserve It!”*
 * Stylish, women-centric design with **red theme**
@@ -75,7 +75,7 @@ Each category displays jewelry added via CRUD operations.
 * Minimal, elegant layout
 * Form error messages are shown in red
 * 
- **Technologies Used**
+### **Technologies Used**
 
 | Layer               | Tech                                         |
 | ------------------- | -------------------------------------------- |
@@ -85,7 +85,7 @@ Each category displays jewelry added via CRUD operations.
 | **Testing**         | Postman (API Testing)                        |
 | **Version Control** | Git, GitHub                                  |
 
- **Extras**
+### **Extras**
 
 * Users can only do CRUD operations *after login*
 * The homepage dynamically displays jewelry items under the appropriate categories (like Rings, Anklets, etc.)
