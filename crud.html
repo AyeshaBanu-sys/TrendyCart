@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jewellery Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #fff8f8;
+    }
+    header {
+      background-color: #8B0000;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #fdf4f4;
+      padding: 10px;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #8B0000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      padding: 20px;
+    }
+    .form-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>woman, you deserve it all</h1>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showSection('post')">POST</a>
+    <a href="#" onclick="showSection('get')">GET</a>
+    <a href="#" onclick="showSection('put')">PUT</a>
+    <a href="#" onclick="showSection('patch')">PATCH</a>
+    <a href="#" onclick="showSection('delete')">DELETE</a>
+    <a href="#" onclick="showSection('getAll')">GET ALL</a>
+  </nav>
+
+  <div class="container">
+    <!-- POST -->
+    <div id="post" class="form-box">
+      <h2>POST</h2>
+      <input type="text" id="postName" placeholder="Name">
+      <input type="text" id="postType" placeholder="Type">
+      <input type="number" id="postPrice" placeholder="Price">
+      <button onclick="createNecklace()">Submit</button>
+      <pre id="postResult"></pre>
+    </div>
+
+    <!-- GET -->
+    <div id="get" class="form-box" style="display:none">
+      <h2>GET</h2>
+      <input type="number" id="getId" placeholder="Enter ID">
+      <button onclick="fetchNecklace()">Fetch</button>
+      <pre id="getResult"></pre>
+    </div>
+
+    <!-- PUT -->
+    <div id="put" class="form-box" style="display:none">
+      <h2>PUT</h2>
+      <input type="number" id="putId" placeholder="ID">
+      <input type="text" id="putName" placeholder="Name">
+      <input type="text" id="putType" placeholder="Type">
+      <input type="number" id="putPrice" placeholder="Price">
+      <button onclick="updateNecklace()">Update</button>
+      <pre id="putResult"></pre>
+    </div>
+
+    <!-- PATCH -->
+    <div id="patch" class="form-box" style="display:none">
+      <h2>PATCH</h2>
+      <input type="number" id="patchId" placeholder="ID">
+      <input type="text" id="patchName" placeholder="Name (optional)">
+      <input type="text" id="patchType" placeholder="Type (optional)">
+      <input type="number" id="patchPrice" placeholder="Price (optional)">
+      <button onclick="patchNecklace()">Patch</button>
+      <pre id="patchResult"></pre>
+    </div>
+
+    <!-- DELETE -->
+    <div id="delete" class="form-box" style="display:none">
+      <h2>DELETE</h2>
+      <input type="number" id="deleteId" placeholder="Enter ID">
+      <button onclick="deleteNecklace()">Delete</button>
+      <pre id="deleteResult"></pre>
+    </div>
+
+    <!-- GET ALL -->
+    <div id="getAll" class="form-box" style="display:none">
+      <h2>GET ALL</h2>
+      <button onclick="fetchAllNecklaces()">Fetch All</button>
+      <pre id="getAllResult"></pre>
+    </div>
+  </div>
+
+  <script>
+    const baseUrl = 'http://localhost:8080/api/jewellery';
+
+    function showSection(id) {
+      document.querySelectorAll('.form-box').forEach(div => div.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    async function createNecklace() {
+      const name = document.getElementById('postName').value;
+      const type = document.getElementById('postType').value;
+      const price = parseFloat(document.getElementById('postPrice').value);
+
+      const response = await fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, type, price })
+      });
+      document.getElementById('postResult').textContent = JSON.stringify(await response.json(), null, 2);
+    }
+
+    async function fetchNecklace() {
+      const id = document.getElementById('getId').value;
+      const response = await fetch(`${baseUrl}/${id}`);
+      document.getElementById('getResult').textContent = JSON.stringify(await response.json(), null, 2);
+    }
+
+    async function updateNecklace() {
+      const id = document.getElementById('putId').value;
+      const name = document.getElementById('putName').value;
+      const type = document.getElementById('putType').value;
+      const price = parseFloat(document.getElementById('putPrice').value);
+
+      const response = await fetch(`${baseUrl}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, type, price })
+      });
+      document.getElementById('putResult').textContent = JSON.stringify(await response.json(), null, 2);
+    }
+
+    async function patchNecklace() {
+      const id = document.getElementById('patchId').value;
+      const updates = {};
+      const name = document.getElementById('patchName').value;
+      const type = document.getElementById('patchType').value;
+      const price = document.getElementById('patchPrice').value;
+
+      if (name) updates.name = name;
+      if (type) updates.type = type;
+      if (price) updates.price = parseFloat(price);
+
+      const response = await fetch(`${baseUrl}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+
+      document.getElementById('patchResult').textContent = JSON.stringify(await response.json(), null, 2);
+    }
+
+    async function deleteNecklace() {
+      const id = document.getElementById('deleteId').value;
+
+      if (!id) {
+        document.getElementById('deleteResult').textContent = "Please enter a valid ID.";
+        return;
+      }
+
+      const response = await fetch(`${baseUrl}/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        document.getElementById('deleteResult').textContent = `Deleted item with ID: ${id}`;
+      } else {
+        const errorText = await response.text();
+        document.getElementById('deleteResult').textContent = `Error: ${errorText}`;
+      }
+    }
+
+    async function fetchAllNecklaces() {
+      const response = await fetch(baseUrl);
+      const data = await response.json();
+      document.getElementById('getAllResult').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
