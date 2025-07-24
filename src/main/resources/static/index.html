@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrendyCart – Jewellery Collection</title>
+  <style>
+    /* [Styles are unchanged] */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff1f1;
+    }
+    header {
+      background-color: maroon;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .left {
+      margin-left: 20px;
+    }
+    header .left button {
+      margin-right: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    header .center {
+      text-align: center;
+      flex-grow: 1;
+      margin-right: 150px;
+    }
+    header .center h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: maroon;
+    }
+    #crudLink {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+    #crudLink a {
+      color: maroon;
+      font-weight: bold;
+    }
+
+    .category-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .category-buttons button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: 2px solid maroon;
+      border-radius: 15px;
+      background-color: transparent;
+      color: maroon;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 8px;
+      width: 300px;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: black;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type=text], input[type=password], input[type=email] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 12px;
+      color: gray;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+
+    #categoryItems {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: maroon;
+    }
+
+    .item-card {
+      border: 1px solid maroon;
+      border-radius: 10px;
+      margin: 10px auto;
+      padding: 15px;
+      width: 300px;
+      background-color: #fff7f7;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="left">
+    <button onclick="openModal('loginModal')">Login</button>
+    <button onclick="openModal('signupModal')">Signup</button>
+  </div>
+  <div class="center">
+    <h1>TrendyCart – Jewellery Collection</h1>
+  </div>
+</header>
+
+<h2>Women, you deserve it all</h2>
+
+<div id="crudLink">
+  <a href="#" onclick="handleCrudClick()">Do CRUD Operations</a>
+  <div id="crudError" class="message error"></div>
+</div>
+
+<h3>Categories</h3>
+<div class="category-buttons">
+  <button onclick="showItems('Necklace')">Necklace</button>
+  <button onclick="showItems('Earrings')">Earrings</button>
+  <button onclick="showItems('Maang Tikka')">Maang Tikka</button>
+  <button onclick="showItems('Nose Pins')">Nose Pins</button>
+  <button onclick="showItems('Bangles')">Bangles</button>
+  <button onclick="showItems('Rings')">Rings</button>
+  <button onclick="showItems('Anklets')">Anklets</button>
+</div>
+
+<div id="categoryItems"></div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('loginModal')">&times;</span>
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <div class="form-group">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <span class="toggle-password" onclick="toggleVisibility('loginPassword', this)">👁️</span>
+    </div>
+    <button onclick="login()">Login</button>
+    <div id="loginMessage" class="message"></div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('signupModal')">&times;</span>
+    <h2>Signup</h2>
+    <input type="text" id="signupUsername" placeholder="Username">
+    <input type="email" id="signupEmail" placeholder="Email">
+    <div class="form-group">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <span class="toggle-password" onclick="toggleVisibility('signupPassword', this)">👁️</span>
+    </div>
+    <div class="form-group">
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+      <span class="toggle-password" onclick="toggleVisibility('signupConfirmPassword', this)">👁️</span>
+    </div>
+    <button onclick="signup()">Submit</button>
+    <div id="signupMessage" class="message"></div>
+  </div>
+</div>
+
+<script>
+  let isLoggedIn = false;
+
+  function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+    document.getElementById("signupMessage").textContent = "";
+    document.getElementById("loginMessage").textContent = "";
+    document.getElementById("crudError").textContent = "";
+  }
+
+  function toggleVisibility(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.textContent = "❌";
+    } else {
+      input.type = "password";
+      icon.textContent = "👁️";
+    }
+  }
+
+  function validatePassword(password) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+    return passwordRegex.test(password);
+  }
+
+  function signup() {
+    const username = document.getElementById("signupUsername").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("signupConfirmPassword").value;
+    const message = document.getElementById("signupMessage");
+
+    const usernameRegex = /^[A-Za-z][A-Za-z0-9_]{2,19}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    message.className = "message error";
+
+    if (!usernameRegex.test(username)) {
+      message.textContent = "Username must start with a letter, can include letters, numbers or underscores (3-20 characters).";
+      return;
+    }
+
+    if (localStorage.getItem(username)) {
+      message.textContent = "Username already exists.";
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      message.textContent = "Invalid email format.";
+      return;
+    }
+
+    for (let key in localStorage) {
+      try {
+        const user = JSON.parse(localStorage.getItem(key));
+        if (user && user.email === email) {
+          message.textContent = "Email already exists.";
+          return;
+        }
+      } catch {}
+    }
+
+    if (!validatePassword(password)) {
+      message.textContent = "Password must contain uppercase, lowercase, number, and special character.";
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      message.textContent = "Passwords do not match.";
+      return;
+    }
+
+    const newUser = { username, email, password };
+    localStorage.setItem(username, JSON.stringify(newUser));
+
+    message.textContent = "Signup successful!";
+    message.className = "message success";
+
+    setTimeout(() => {
+      closeModal("signupModal");
+    }, 1000);
+  }
+
+  function login() {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const message = document.getElementById("loginMessage");
+
+    const storedUser = JSON.parse(localStorage.getItem(username));
+    if (!storedUser || storedUser.password !== password) {
+      message.textContent = "Invalid username or password.";
+      message.className = "message error";
+      return;
+    }
+
+    isLoggedIn = true;
+    message.textContent = "Login successful!";
+    message.className = "message success";
+
+    setTimeout(() => {
+      closeModal("loginModal");
+    }, 1000);
+  }
+
+  function handleCrudClick() {
+    const error = document.getElementById("crudError");
+    if (!isLoggedIn) {
+      error.textContent = "Please log in to access CRUD operations.";
+      return;
+    }
+    window.location.href = "crud.html";
+  }
+
+  function showItems(category) {
+    fetch(`/api/jewellery/type/${category}`)
+      .then(response => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then(data => {
+        const output = document.getElementById("categoryItems");
+        output.innerHTML = "";
+
+        if (data.length === 0) {
+          output.innerHTML = "<p>No items available</p>";
+          return;
+        }
+
+        data.forEach(item => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "item-card";
+          itemDiv.innerHTML = `
+            <h3>${item.name}</h3>
+            <p><strong>Type:</strong> ${item.type}</p>
+            <p><strong>Price:</strong> ₹${item.price}</p>
+          `;
+          output.appendChild(itemDiv);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching category items:", error);
+        document.getElementById("categoryItems").innerHTML = "<p>Error loading items.</p>";
+      });
+  }
+</script>
+
+</body>
+</html>
