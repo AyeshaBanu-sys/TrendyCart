@@ -166,6 +166,7 @@
   <div class="left">
     <button onclick="openModal('loginModal')">Login</button>
     <button onclick="openModal('signupModal')">Signup</button>
+    <button onclick="goToCrud()">CRUD Page</button> <!-- NEW BUTTON -->
   </div>
   <div class="center">
     <h1>TrendyCart – Jewellery Collection</h1>
@@ -343,6 +344,14 @@
       return;
     }
     window.location.href = "crud.html";
+  }
+
+  function goToCrud() {
+    if (!isLoggedIn) {
+      alert("Please login first to access CRUD operations.");
+    } else {
+      window.location.href = "crud.html";
+    }
   }
 
   function showItems(category) {
