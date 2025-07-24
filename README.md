@@ -43,19 +43,19 @@ This project was created to:
   * Users must **log in to access CRUD operations**
   * If not logged in, show: **"Please log in to access CRUD operations."**
 
-### **CRUD Operations for Jewelry**
+### **CRUD Operations for Jewellery**
 
 * **Only available after login**
 * **CRUD actions include**:
 
-  * **Create**: Add a new jewelry item
-  * **Read**: View jewelry list
+  * **Create**: Add a new Jewellery item
+  * **Read**: View Jewellery list
   * **Update**: Modify item details
   * **Delete**: Remove items
 * **Storage**: Data is saved using `localStorage`
 * **Jewelry details shown under categories on the homepage*
 
-### **Jewelry Categories**
+### **Jewellery Categories**
 
 Displayed visually for easy navigation:
 * Necklace
@@ -65,7 +65,7 @@ Displayed visually for easy navigation:
 * Bangles
 * Rings
 * Anklets
-Each category displays jewelry added via CRUD operations.
+Each category displays Jewellery added via CRUD operations.
 
 ### **UI Design Highlights**
 
